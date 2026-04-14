@@ -293,6 +293,66 @@
         .hidden {
             display: none;
         }
+
+        /* Dashboard Key */
+        .key-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .key-header {
+            background: #1F4E79;
+            color: white;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .key-header:hover {
+            background: #2d6ba3;
+        }
+
+        .key-toggle {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .key-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .key-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .key-indicator {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 3px;
+            margin-top: 2px;
+        }
+
+        .key-indicator.red { background: #ffe6e6; border: 2px solid #dc3545; }
+        .key-indicator.green { background: #e6f2e6; border: 2px solid #28a745; }
+        .key-indicator.critical { background: #dc3545; }
+        .key-indicator.warning { background: #fd7e14; }
+        .key-indicator.blue { background: #1F4E79; }
     </style>
 </head>
 <body>
@@ -302,6 +362,56 @@
     </div>
 
     <div class="container">
+        <!-- Dashboard Key -->
+        <div class="key-section">
+            <div class="key-header" onclick="document.getElementById('key-body').classList.toggle('hidden'); this.querySelector('.key-toggle').textContent = document.getElementById('key-body').classList.contains('hidden') ? '▶ Show' : '▼ Hide';">
+                Dashboard Key
+                <span class="key-toggle">▼ Hide</span>
+            </div>
+            <div class="key-body" id="key-body">
+                <div class="key-item">
+                    <div class="key-indicator red"></div>
+                    <div><strong>Positive numbers (red)</strong> in 3-Mo, 4-Mo, 5-Mo columns = units you need to purchase. Higher = more urgent.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator green"></div>
+                    <div><strong>Negative numbers (green)</strong> in those columns = surplus/extra inventory. You're covered for that period.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator critical"></div>
+                    <div><strong>CRITICAL</strong> = 5-month need exceeds 5,000 units. Order immediately.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator warning"></div>
+                    <div><strong>WARNING</strong> = 5-month need is 1–5,000 units. Plan to order soon.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator red"></div>
+                    <div><strong>Needs Purchase</strong> = product will run out within 5 months at current sales rate.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator green"></div>
+                    <div><strong>Surplus</strong> = enough stock to cover the next 5 months.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator blue"></div>
+                    <div><strong>DOH</strong> = Days on Hand. How many days your current FBA inventory will last at the current sales rate.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator blue"></div>
+                    <div><strong>FBA Avail</strong> = units currently available for sale on Amazon.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator blue"></div>
+                    <div><strong>Warehouse</strong> = combined units at Philly warehouse + Weaver Group.</div>
+                </div>
+                <div class="key-item">
+                    <div class="key-indicator blue"></div>
+                    <div><strong>30d Sales</strong> = total units sold in the last 30 days (Amazon + TikTok).</div>
+                </div>
+            </div>
+        </div>
+
         <!-- KPI Section -->
         <div class="kpi-section">
             <div class="kpi-card">
