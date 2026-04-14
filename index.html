@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Grower LLC — Inventory Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1F4E79 0%, #2d6ba3 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* KPI Cards */
+        .kpi-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #1F4E79;
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1F4E79;
+        }
+
+        /* Alert Severity Badge */
+        .severity-critical {
+            background: #dc3545;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .severity-warning {
+            background: #fd7e14;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* Alerts Table */
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1F4E79;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1F4E79;
+            padding-bottom: 10px;
+        }
+
+        .alerts-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .alerts-table th {
+            background: #1F4E79;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .alerts-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .alerts-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .alerts-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .no-alerts {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            position: relative;
+            height: 400px;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #1F4E79;
+            margin-bottom: 15px;
+        }
+
+        /* Full Inventory Table */
+        .controls-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            font-size: 13px;
+        }
+
+        .inventory-table th {
+            background: #1F4E79;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .inventory-table th:hover {
+            background: #2d6ba3;
+        }
+
+        .inventory-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .inventory-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .inventory-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Stock status colors */
+        .stock-positive {
+            background: #ffe6e6;
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .stock-negative {
+            background: #e6f2e6;
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .status-needs-purchase {
+            background: #ffe6e6;
+            color: #dc3545;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .status-surplus {
+            background: #e6f2e6;
+            color: #28a745;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kpi-section {
+                grid-template-columns: 1fr;
+            }
+
+            .inventory-table {
+                font-size: 12px;
+            }
+
+            .inventory-table td,
+            .inventory-table th {
+                padding: 8px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Smart Grower LLC — Inventory Dashboard</h1>
+        <p>Updated: April 14, 2026</p>
+    </div>
+
+    <div class="container">
+        <!-- KPI Section -->
+        <div class="kpi-section">
+            <div class="kpi-card">
+                <div class="kpi-label">Total SKUs</div>
+                <div class="kpi-value" id="kpi-skus">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total FBA Available</div>
+                <div class="kpi-value" id="kpi-fba">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total Warehouse Stock</div>
+                <div class="kpi-value" id="kpi-warehouse">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total At Supplier</div>
+                <div class="kpi-value" id="kpi-supplier">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Products Needing Purchase</div>
+                <div class="kpi-value" id="kpi-reorder">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Average DOH</div>
+                <div class="kpi-value" id="kpi-doh">0</div>
+            </div>
+        </div>
+
+        <!-- Purchase Alerts Section -->
+        <div class="section-title">Purchase Alerts (Stock5Mo > 0 = Units Needed)</div>
+        <table class="alerts-table" id="alerts-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>SKU</th>
+                    <th>FBA Avail</th>
+                    <th>30d Sales</th>
+                    <th>DOH</th>
+                    <th>5-Mo Units Needed</th>
+                    <th>Severity</th>
+                </tr>
+            </thead>
+            <tbody id="alerts-body">
+                <tr><td colspan="7" class="no-alerts">Loading alerts...</td></tr>
+            </tbody>
+        </table>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="chart-container">
+                <div class="chart-title">Top 15 Products by 30-Day Amazon Sales</div>
+                <canvas id="salesChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">Inventory Distribution</div>
+                <canvas id="inventoryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Full Inventory Table Section -->
+        <div class="section-title">Full Inventory</div>
+        <div class="controls-section">
+            <div class="filter-group">
+                <label>Category</label>
+                <select id="category-filter">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Stock Status</label>
+                <select id="status-filter">
+                    <option value="">All Products</option>
+                    <option value="needs-purchase">Needs Purchase</option>
+                    <option value="surplus">Surplus</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Search</label>
+                <input type="text" id="search-input" placeholder="Search by name or SKU...">
+            </div>
+        </div>
+
+        <table class="inventory-table" id="inventory-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('sku')">SKU</th>
+                    <th onclick="sortTable('name')">Product Name</th>
+                    <th onclick="sortTable('fbaAvail')">FBA Avail</th>
+                    <th onclick="sortTable('reserved')">Reserved</th>
+                    <th onclick="sortTable('inbound')">Inbound</th>
+                    <th onclick="sortTable('warehouse')">Warehouse</th>
+                    <th onclick="sortTable('supplier')">At Supplier</th>
+                    <th onclick="sortTable('sales')">30d Sales</th>
+                    <th onclick="sortTable('doh')">DOH</th>
+                    <th onclick="sortTable('stock3mo')">3-Mo Needed</th>
+                    <th onclick="sortTable('stock4mo')">4-Mo Needed</th>
+                    <th onclick="sortTable('stock5mo')">5-Mo Needed</th>
+                    <th onclick="sortTable('status')">Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="inventory-body">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const data = [
+            {sku:"MF-500", name:"Mycorrhizal Fungi 500G", fbaAvail:686, reserved:129, inbound:41, phillyWH:143, weaver:0, sold30Amazon:297, sold30TikTok:0, doh:101, stock3mo:-108, stock4mo:189, stock5mo:486, notes:""},
+            {sku:"MF-250", name:"Mycorrhizal Fungi 250G", fbaAvail:626, reserved:153, inbound:0, phillyWH:13, weaver:0, sold30Amazon:196, sold30TikTok:0, doh:143, stock3mo:-204, stock4mo:-8, stock5mo:188, notes:""},
+            {sku:"MF-125", name:"Mycorrhizal Fungi 125G", fbaAvail:3970, reserved:1199, inbound:42, phillyWH:3111, weaver:0, sold30Amazon:1262, sold30TikTok:109, doh:170, stock3mo:-4209, stock4mo:-2838, stock5mo:-1467, notes:""},
+            {sku:"boost-8oz", name:"Supercharge 8oz", fbaAvail:820, reserved:257, inbound:1, phillyWH:0, weaver:0, sold30Amazon:449, sold30TikTok:0, doh:81, stock3mo:269, stock4mo:718, stock5mo:1167, notes:""},
+            {sku:"boost-4oz", name:"Supercharge 4oz", fbaAvail:1176, reserved:308, inbound:11, phillyWH:1309, weaver:0, sold30Amazon:409, sold30TikTok:290, doh:141, stock3mo:-707, stock4mo:-8, stock5mo:691, notes:""},
+            {sku:"boost-2oz", name:"Supercharge 2oz", fbaAvail:1512, reserved:524, inbound:3, phillyWH:420, weaver:0, sold30Amazon:583, sold30TikTok:143, doh:129, stock3mo:-281, stock4mo:445, stock5mo:1171, notes:""},
+            {sku:"PO-500", name:"Plant Food 500G", fbaAvail:249, reserved:434, inbound:20, phillyWH:1, weaver:0, sold30Amazon:168, sold30TikTok:0, doh:203, stock3mo:-200, stock4mo:-32, stock5mo:136, notes:""},
+            {sku:"PO-250", name:"Plant Food 250G", fbaAvail:192, reserved:14, inbound:0, phillyWH:45, weaver:0, sold30Amazon:107, sold30TikTok:0, doh:49, stock3mo:70, stock4mo:177, stock5mo:284, notes:""},
+            {sku:"PO-125-M", name:"Plant Food 125G", fbaAvail:1820, reserved:721, inbound:799, phillyWH:600, weaver:0, sold30Amazon:825, sold30TikTok:8, doh:132, stock3mo:-1441, stock4mo:-608, stock5mo:225, notes:"Check manually"},
+            {sku:"PS-16", name:"Neem Spray 16oz RTU", fbaAvail:8954, reserved:2729, inbound:6972, phillyWH:187, weaver:1646, sold30Amazon:5723, sold30TikTok:35, doh:100, stock3mo:-3214, stock4mo:2544, stock5mo:8302, notes:""},
+            {sku:"PS-32", name:"Neem Spray 32oz RTU", fbaAvail:1564, reserved:1190, inbound:0, phillyWH:116, weaver:4, sold30Amazon:1562, sold30TikTok:34, doh:128, stock3mo:1914, stock4mo:3510, stock5mo:5106, notes:""},
+            {sku:"PS-128", name:"Neem Spray 128oz Jug", fbaAvail:392, reserved:72, inbound:0, phillyWH:34, weaver:0, sold30Amazon:414, sold30TikTok:11, doh:32, stock3mo:777, stock4mo:1202, stock5mo:1627, notes:""},
+            {sku:"PS-128-Trigger", name:"Neem Spray 128oz F-Style", fbaAvail:0, reserved:4, inbound:0, phillyWH:0, weaver:0, sold30Amazon:100, sold30TikTok:0, doh:0, stock3mo:296, stock4mo:396, stock5mo:496, notes:""},
+            {sku:"PS-10-F", name:"Neem Spray 10oz Flarisol", fbaAvail:464, reserved:449, inbound:1, phillyWH:0, weaver:19, sold30Amazon:66, sold30TikTok:0, doh:366, stock3mo:-735, stock4mo:-669, stock5mo:-603, notes:""},
+            {sku:"NeemConc-4oz", name:"Neem Plant Wash Conc. 4oz", fbaAvail:2203, reserved:161, inbound:0, phillyWH:3, weaver:307, sold30Amazon:243, sold30TikTok:0, doh:241, stock3mo:-1945, stock4mo:-1702, stock5mo:-1459, notes:""},
+            {sku:"NeemConc-8oz", name:"Neem Plant Wash Conc. 8oz", fbaAvail:420, reserved:30, inbound:24, phillyWH:0, weaver:8, sold30Amazon:86, sold30TikTok:0, doh:128, stock3mo:-224, stock4mo:-138, stock5mo:-52, notes:""},
+            {sku:"NeemConc-16oz", name:"Neem Plant Wash Conc. 16oz", fbaAvail:196, reserved:170, inbound:0, phillyWH:0, weaver:8, sold30Amazon:214, sold30TikTok:0, doh:47, stock3mo:268, stock4mo:482, stock5mo:696, notes:""},
+            {sku:"POS-16-AMZ", name:"Peppermint Insect Spray 16oz", fbaAvail:3499, reserved:1447, inbound:0, phillyWH:1031, weaver:6, sold30Amazon:1657, sold30TikTok:1704, doh:81, stock3mo:4100, stock4mo:7461, stock5mo:10822, notes:""},
+            {sku:"POS-32", name:"Peppermint Insect Spray 32oz", fbaAvail:943, reserved:332, inbound:2, phillyWH:122, weaver:13, sold30Amazon:265, sold30TikTok:0, doh:99, stock3mo:-617, stock4mo:-352, stock5mo:-87, notes:""},
+            {sku:"POS-128-Trigger", name:"Peppermint Insect Spray 128oz F-Style", fbaAvail:64, reserved:9, inbound:0, phillyWH:0, weaver:0, sold30Amazon:30, sold30TikTok:0, doh:36, stock3mo:17, stock4mo:47, stock5mo:77, notes:""},
+            {sku:"POS-128", name:"Peppermint Spray 128oz Jug", fbaAvail:147, reserved:243, inbound:0, phillyWH:8, weaver:0, sold30Amazon:96, sold30TikTok:0, doh:92, stock3mo:-110, stock4mo:-14, stock5mo:82, notes:""},
+            {sku:"PeppConc-4oz", name:"Peppermint Spray Conc. 4oz", fbaAvail:975, reserved:0, inbound:0, phillyWH:0, weaver:3, sold30Amazon:14, sold30TikTok:0, doh:366, stock3mo:-936, stock4mo:-922, stock5mo:-908, notes:""},
+            {sku:"PeppConc-8oz", name:"Peppermint Spray Conc. 8oz", fbaAvail:425, reserved:48, inbound:0, phillyWH:0, weaver:10, sold30Amazon:6, sold30TikTok:0, doh:366, stock3mo:-465, stock4mo:-459, stock5mo:-453, notes:""},
+            {sku:"PeppConc-16oz", name:"Peppermint Spray Conc. 16oz", fbaAvail:134, reserved:201, inbound:0, phillyWH:0, weaver:0, sold30Amazon:113, sold30TikTok:0, doh:68, stock3mo:4, stock4mo:117, stock5mo:230, notes:""},
+            {sku:"OPS-3lb", name:"Indoor Potting Soil 3LB", fbaAvail:483, reserved:13, inbound:275, phillyWH:7, weaver:0, sold30Amazon:240, sold30TikTok:0, doh:99, stock3mo:-58, stock4mo:182, stock5mo:422, notes:""},
+            {sku:"SeaKelp-2oz", name:"Sea Kelp 2oz", fbaAvail:1329, reserved:549, inbound:0, phillyWH:17, weaver:0, sold30Amazon:797, sold30TikTok:38, doh:62, stock3mo:610, stock4mo:1445, stock5mo:2280, notes:""},
+            {sku:"SeaKelp-4oz", name:"Sea Kelp 4oz", fbaAvail:451, reserved:176, inbound:250, phillyWH:388, weaver:0, sold30Amazon:272, sold30TikTok:0, doh:78, stock3mo:-449, stock4mo:-177, stock5mo:95, notes:""},
+            {sku:"SeaKelp-8oz", name:"Sea Kelp 8oz", fbaAvail:430, reserved:31, inbound:18, phillyWH:32, weaver:0, sold30Amazon:384, sold30TikTok:0, doh:42, stock3mo:641, stock4mo:1025, stock5mo:1409, notes:""},
+            {sku:"Neem-Supreme-8", name:"Neem Supreme 8oz", fbaAvail:6558, reserved:759, inbound:6048, phillyWH:174, weaver:2032, sold30Amazon:1902, sold30TikTok:0, doh:199, stock3mo:-9865, stock4mo:-7963, stock5mo:-6061, notes:""},
+            {sku:"Neem-Supreme-16", name:"Neem Supreme 16oz", fbaAvail:976, reserved:93, inbound:0, phillyWH:203, weaver:1350, sold30Amazon:197, sold30TikTok:1, doh:143, stock3mo:-2028, stock4mo:-1830, stock5mo:-1632, notes:""},
+            {sku:"Neem-Supreme-32", name:"Neem Supreme 32oz", fbaAvail:824, reserved:95, inbound:0, phillyWH:119, weaver:156, sold30Amazon:159, sold30TikTok:1, doh:148, stock3mo:-714, stock4mo:-554, stock5mo:-394, notes:""},
+            {sku:"Neem-Supreme-10F", name:"Neem Supreme 10oz Flarisol", fbaAvail:30, reserved:1081, inbound:0, phillyWH:0, weaver:14, sold30Amazon:66, sold30TikTok:0, doh:0, stock3mo:-927, stock4mo:-861, stock5mo:-795, notes:""},
+            {sku:"StinkBug-16oz", name:"Stink Bug Spray 16oz", fbaAvail:2407, reserved:353, inbound:0, phillyWH:256, weaver:0, sold30Amazon:664, sold30TikTok:9, doh:105, stock3mo:-997, stock4mo:-324, stock5mo:349, notes:""},
+            {sku:"StinkBug-32oz", name:"Stink Bug Spray 32oz", fbaAvail:356, reserved:11, inbound:0, phillyWH:0, weaver:12, sold30Amazon:66, sold30TikTok:0, doh:131, stock3mo:-181, stock4mo:-115, stock5mo:-49, notes:""},
+            {sku:"StinkBug-128oz", name:"Stink Bug Spray 128oz F-Style", fbaAvail:63, reserved:11, inbound:0, phillyWH:0, weaver:0, sold30Amazon:27, sold30TikTok:0, doh:48, stock3mo:7, stock4mo:34, stock5mo:61, notes:""},
+            {sku:"RodentRep-16oz", name:"Rodent Repellent 16oz", fbaAvail:1963, reserved:4862, inbound:9, phillyWH:371, weaver:408, sold30Amazon:1387, sold30TikTok:37, doh:256, stock3mo:-3341, stock4mo:-1917, stock5mo:-493, notes:""},
+            {sku:"RodentRep-32oz", name:"Rodent Repellent 32oz", fbaAvail:303, reserved:138, inbound:0, phillyWH:0, weaver:1120, sold30Amazon:197, sold30TikTok:0, doh:70, stock3mo:-970, stock4mo:-773, stock5mo:-576, notes:""},
+            {sku:"RodentRep-128-Jug", name:"Rodent Repellent 128oz Jug", fbaAvail:117, reserved:179, inbound:1, phillyWH:0, weaver:0, sold30Amazon:74, sold30TikTok:0, doh:93, stock3mo:-75, stock4mo:-1, stock5mo:73, notes:""},
+            {sku:"RodentRep-128-F", name:"Rodent Repellent 128oz F-Style", fbaAvail:55, reserved:0, inbound:0, phillyWH:0, weaver:201, sold30Amazon:43, sold30TikTok:0, doh:25, stock3mo:-127, stock4mo:-84, stock5mo:-41, notes:""},
+            {sku:"SpiderRep-16oz", name:"Spider Repellent 16oz", fbaAvail:2070, reserved:13, inbound:0, phillyWH:0, weaver:50, sold30Amazon:321, sold30TikTok:0, doh:153, stock3mo:-1170, stock4mo:-849, stock5mo:-528, notes:""},
+            {sku:"SpiderRep-32oz", name:"Spider Repellent 32oz", fbaAvail:453, reserved:0, inbound:0, phillyWH:0, weaver:2, sold30Amazon:32, sold30TikTok:0, doh:307, stock3mo:-359, stock4mo:-327, stock5mo:-295, notes:""},
+            {sku:"SpiderRep-128-Jug", name:"Spider Repellent 128oz Jug", fbaAvail:82, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:10, sold30TikTok:0, doh:105, stock3mo:-52, stock4mo:-42, stock5mo:-32, notes:""},
+            {sku:"SpiderRep-128-F", name:"Spider Repellent 128oz F-Style", fbaAvail:92, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:8, sold30TikTok:0, doh:74, stock3mo:-68, stock4mo:-60, stock5mo:-52, notes:""},
+            {sku:"AntKiller-16oz", name:"Ant Killer Spray 16oz", fbaAvail:1911, reserved:135, inbound:0, phillyWH:0, weaver:24, sold30Amazon:353, sold30TikTok:0, doh:228, stock3mo:-1011, stock4mo:-658, stock5mo:-305, notes:""},
+            {sku:"AntKiller-32oz", name:"Ant Killer Spray 32oz", fbaAvail:437, reserved:12, inbound:0, phillyWH:0, weaver:12, sold30Amazon:27, sold30TikTok:0, doh:366, stock3mo:-380, stock4mo:-353, stock5mo:-326, notes:""},
+            {sku:"AntKiller-128-Jug", name:"Ant Killer Spray 128oz Jug", fbaAvail:80, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:15, sold30TikTok:0, doh:101, stock3mo:-35, stock4mo:-20, stock5mo:-5, notes:""},
+            {sku:"AntKiller-128-F", name:"Ant Killer Spray 128oz F-Style", fbaAvail:71, reserved:28, inbound:4, phillyWH:0, weaver:0, sold30Amazon:1, sold30TikTok:0, doh:46, stock3mo:-100, stock4mo:-99, stock5mo:-98, notes:""},
+            {sku:"GHPF-8", name:"Genius+ House Plant Food 8oz", fbaAvail:411, reserved:1213, inbound:14, phillyWH:145, weaver:6, sold30Amazon:1328, sold30TikTok:2, doh:30, stock3mo:2201, stock4mo:3531, stock5mo:4861, notes:""},
+            {sku:"GHPF-8-2pk", name:"Genius+ Plant Food 8oz 2-Pack", fbaAvail:194, reserved:103, inbound:0, phillyWH:0, weaver:21, sold30Amazon:55, sold30TikTok:0, doh:41, stock3mo:-153, stock4mo:-98, stock5mo:-43, notes:""},
+            {sku:"GGPF-200", name:"Genius+ Granular 200G", fbaAvail:154, reserved:77, inbound:293, phillyWH:1290, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-1814, stock4mo:-1814, stock5mo:-1814, notes:""},
+            {sku:"GGPF-400", name:"Genius+ Granular 400G", fbaAvail:449, reserved:70, inbound:0, phillyWH:2, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:327, stock3mo:-521, stock4mo:-521, stock5mo:-521, notes:""},
+            {sku:"GGPF-1000", name:"Genius+ Granular 1000G", fbaAvail:496, reserved:16, inbound:0, phillyWH:314, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-826, stock4mo:-826, stock5mo:-826, notes:""},
+            {sku:"GS-8", name:"Gnat Spray 8oz", fbaAvail:78, reserved:930, inbound:0, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-1008, stock4mo:-1008, stock5mo:-1008, notes:""},
+            {sku:"GS-16", name:"Gnat Spray 16oz", fbaAvail:31, reserved:465, inbound:14, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:0, stock3mo:-510, stock4mo:-510, stock5mo:-510, notes:""},
+            {sku:"MD-32", name:"Mite Defender 32oz", fbaAvail:252, reserved:242, inbound:0, phillyWH:0, weaver:7, sold30Amazon:0, sold30TikTok:0, doh:313, stock3mo:-501, stock4mo:-501, stock5mo:-501, notes:""}
+        ];
+
+        let currentSort = { field: 'stock5mo', direction: 'desc' };
+        let filteredData = [...data];
+
+        function getCategory(name) {
+            if (name.includes('Fungi')) return 'Fungi';
+            if (name.includes('Supercharge')) return 'Boosters';
+            if (name.includes('Plant Food')) return 'Plant Food';
+            if (name.includes('Neem') || name.includes('neem')) return 'Neem';
+            if (name.includes('Peppermint') || name.includes('Spray Conc')) return 'Peppermint';
+            if (name.includes('Rodent')) return 'Rodent Control';
+            if (name.includes('Spider')) return 'Spider Control';
+            if (name.includes('Stink Bug')) return 'Pest Control';
+            if (name.includes('Ant Killer')) return 'Pest Control';
+            if (name.includes('Gnat')) return 'Pest Control';
+            if (name.includes('Mite')) return 'Pest Control';
+            if (name.includes('Sea Kelp')) return 'Supplements';
+            if (name.includes('Potting')) return 'Soil';
+            if (name.includes('Genius')) return 'Genius Line';
+            return 'Other';
+        }
+
+        function getStatus(stock5mo) {
+            return stock5mo > 0 ? 'needs-purchase' : 'surplus';
+        }
+
+        function getSeverity(stock5mo) {
+            if (stock5mo > 5000) return 'critical';
+            if (stock5mo > 0) return 'warning';
+            return 'ok';
+        }
+
+        function initializeFilters() {
+            const categories = new Set(data.map(d => getCategory(d.name)));
+            const categorySelect = document.getElementById('category-filter');
+            Array.from(categories).sort().forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat;
+                categorySelect.appendChild(option);
+            });
+        }
+
+        function updateKPIs() {
+            const totalSKUs = data.length;
+            const totalFBA = data.reduce((sum, d) => sum + d.fbaAvail, 0);
+            const totalWarehouse = data.reduce((sum, d) => sum + d.phillyWH + d.weaver, 0);
+            const totalSupplier = data.reduce((sum, d) => sum + d.reserved + d.inbound, 0);
+            const needsReorder = data.filter(d => d.stock5mo > 0).length;
+            const avgDOH = Math.round(data.reduce((sum, d) => sum + d.doh, 0) / totalSKUs);
+
+            document.getElementById('kpi-skus').textContent = totalSKUs.toLocaleString();
+            document.getElementById('kpi-fba').textContent = totalFBA.toLocaleString();
+            document.getElementById('kpi-warehouse').textContent = totalWarehouse.toLocaleString();
+            document.getElementById('kpi-supplier').textContent = totalSupplier.toLocaleString();
+            document.getElementById('kpi-reorder').textContent = needsReorder.toLocaleString();
+            document.getElementById('kpi-doh').textContent = avgDOH.toLocaleString();
+        }
+
+        function populateAlerts() {
+            const alerts = data.filter(d => d.stock5mo > 0).sort((a, b) => b.stock5mo - a.stock5mo);
+            const tbody = document.getElementById('alerts-body');
+
+            if (alerts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="no-alerts">No purchase alerts at this time. All products have sufficient stock.<\/td><\/tr>';
+                return;
+            }
+
+            tbody.innerHTML = alerts.map(d => {
+                const sales = d.sold30Amazon + d.sold30TikTok;
+                const severity = getSeverity(d.stock5mo);
+                const severityHTML = severity === 'critical'
+                    ? '<span class="severity-critical">CRITICAL<\/span>'
+                    : '<span class="severity-warning">WARNING<\/span>';
+
+                return `<tr>
+                    <td>${d.name}<\/td>
+                    <td>${d.sku}<\/td>
+                    <td>${d.fbaAvail.toLocaleString()}<\/td>
+                    <td>${sales.toLocaleString()}<\/td>
+                    <td>${d.doh}<\/td>
+                    <td class="stock-positive">${d.stock5mo.toLocaleString()}<\/td>
+                    <td>${severityHTML}<\/td>
+                <\/tr>`;
+            }).join('');
+        }
+
+        function populateInventoryTable() {
+            const tbody = document.getElementById('inventory-body');
+            tbody.innerHTML = filteredData.map(d => {
+                const sales = d.sold30Amazon + d.sold30TikTok;
+                const status = getStatus(d.stock5mo);
+                const statusHTML = status === 'needs-purchase'
+                    ? '<span class="status-needs-purchase">Needs Purchase<\/span>'
+                    : '<span class="status-surplus">Surplus<\/span>';
+
+                const stock3Class = d.stock3mo > 0 ? 'stock-positive' : 'stock-negative';
+                const stock4Class = d.stock4mo > 0 ? 'stock-positive' : 'stock-negative';
+                const stock5Class = d.stock5mo > 0 ? 'stock-positive' : 'stock-negative';
+
+                return `<tr>
+                    <td>${d.sku}<\/td>
+                    <td>${d.name}<\/td>
+                    <td>${d.fbaAvail.toLocaleString()}<\/td>
+                    <td>${d.reserved.toLocaleString()}<\/td>
+                    <td>${d.inbound.toLocaleString()}<\/td>
+                    <td>${(d.phillyWH + d.weaver).toLocaleString()}<\/td>
+                    <td>0<\/td>
+                    <td>${sales.toLocaleString()}<\/td>
+                    <td>${d.doh}<\/td>
+                    <td class="${stock3Class}">${d.stock3mo.toLocaleString()}<\/td>
+                    <td class="${stock4Class}">${d.stock4mo.toLocaleString()}<\/td>
+                    <td class="${stock5Class}">${d.stock5mo.toLocaleString()}<\/td>
+                    <td>${statusHTML}<\/td>
+                    <td>${d.notes || '-'}<\/td>
+                <\/tr>`;
+            }).join('');
+        }
+
+        function applyFilters() {
+            const category = document.getElementById('category-filter').value;
+            const status = document.getElementById('status-filter').value;
+            const search = document.getElementById('search-input').value.toLowerCase();
+
+            filteredData = data.filter(d => {
+                const matchCategory = !category || getCategory(d.name) === category;
+                const matchStatus = !status || getStatus(d.stock5mo) === status;
+                const matchSearch = !search || d.name.toLowerCase().includes(search) || d.sku.toLowerCase().includes(search);
+                return matchCategory && matchStatus && matchSearch;
+            });
+
+            sortData();
+            populateInventoryTable();
+        }
+
+        function sortData() {
+            filteredData.sort((a, b) => {
+                let aVal = a[currentSort.field];
+                let bVal = b[currentSort.field];
+
+                if (typeof aVal === 'string') {
+                    aVal = aVal.toLowerCase();
+                    bVal = bVal.toLowerCase();
+                }
+
+                if (currentSort.direction === 'asc') {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+        }
+
+        function sortTable(field) {
+            if (currentSort.field === field) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.field = field;
+                currentSort.direction = 'desc';
+            }
+            sortData();
+            populateInventoryTable();
+        }
+
+        function createSalesChart() {
+            const top15 = data.sort((a, b) => (b.sold30Amazon + b.sold30TikTok) - (a.sold30Amazon + a.sold30TikTok)).slice(0, 15);
+
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: top15.map(d => d.name),
+                    datasets: [{
+                        label: '30-Day Sales',
+                        data: top15.map(d => d.sold30Amazon + d.sold30TikTok),
+                        backgroundColor: '#1F4E79',
+                        borderColor: '#1F4E79',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function createInventoryChart() {
+            const totalFBA = data.reduce((sum, d) => sum + d.fbaAvail, 0);
+            const totalReserved = data.reduce((sum, d) => sum + d.reserved, 0);
+            const totalInbound = data.reduce((sum, d) => sum + d.inbound, 0);
+            const totalWarehouse = data.reduce((sum, d) => sum + d.phillyWH + d.weaver, 0);
+
+            const ctx = document.getElementById('inventoryChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['FBA', 'Reserved', 'Inbound', 'Warehouse'],
+                    datasets: [{
+                        data: [totalFBA, totalReserved, totalInbound, totalWarehouse],
+                        backgroundColor: ['#1F4E79', '#3d7ab5', '#6b9ecb', '#a0c4e1']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFilters();
+            updateKPIs();
+            populateAlerts();
+            populateInventoryTable();
+            createSalesChart();
+            createInventoryChart();
+
+            document.getElementById('category-filter').addEventListener('change', applyFilters);
+            document.getElementById('status-filter').addEventListener('change', applyFilters);
+            document.getElementById('search-input').addEventListener('input', applyFilters);
+        });
+    </script>
+</body>
+</html>
