@@ -358,7 +358,7 @@
 <body>
     <div class="header">
         <h1>Smart Grower LLC — Inventory Dashboard</h1>
-        <p>Updated: April 14, 2026</p>
+        <p>Updated: April 20, 2026</p>
     </div>
 
     <div class="container">
@@ -520,61 +520,71 @@
 
     <script>
         const data = [
-            {sku:"MF-500", name:"Mycorrhizal Fungi 500G", fbaAvail:686, reserved:129, inbound:41, phillyWH:143, weaver:0, sold30Amazon:297, sold30TikTok:0, doh:101, stock3mo:-108, stock4mo:189, stock5mo:486, notes:""},
-            {sku:"MF-250", name:"Mycorrhizal Fungi 250G", fbaAvail:626, reserved:153, inbound:0, phillyWH:13, weaver:0, sold30Amazon:196, sold30TikTok:0, doh:143, stock3mo:-204, stock4mo:-8, stock5mo:188, notes:""},
-            {sku:"MF-125", name:"Mycorrhizal Fungi 125G", fbaAvail:3970, reserved:1199, inbound:42, phillyWH:3111, weaver:0, sold30Amazon:1262, sold30TikTok:109, doh:170, stock3mo:-4209, stock4mo:-2838, stock5mo:-1467, notes:""},
-            {sku:"boost-8oz", name:"Supercharge 8oz", fbaAvail:820, reserved:257, inbound:1, phillyWH:0, weaver:0, sold30Amazon:449, sold30TikTok:0, doh:81, stock3mo:269, stock4mo:718, stock5mo:1167, notes:""},
-            {sku:"boost-4oz", name:"Supercharge 4oz", fbaAvail:1176, reserved:308, inbound:11, phillyWH:1309, weaver:0, sold30Amazon:409, sold30TikTok:290, doh:141, stock3mo:-707, stock4mo:-8, stock5mo:691, notes:""},
-            {sku:"boost-2oz", name:"Supercharge 2oz", fbaAvail:1512, reserved:524, inbound:3, phillyWH:420, weaver:0, sold30Amazon:583, sold30TikTok:143, doh:129, stock3mo:-281, stock4mo:445, stock5mo:1171, notes:""},
-            {sku:"PO-500", name:"Plant Food 500G", fbaAvail:249, reserved:434, inbound:20, phillyWH:1, weaver:0, sold30Amazon:168, sold30TikTok:0, doh:203, stock3mo:-200, stock4mo:-32, stock5mo:136, notes:""},
-            {sku:"PO-250", name:"Plant Food 250G", fbaAvail:192, reserved:14, inbound:0, phillyWH:45, weaver:0, sold30Amazon:107, sold30TikTok:0, doh:49, stock3mo:70, stock4mo:177, stock5mo:284, notes:""},
-            {sku:"PO-125-M", name:"Plant Food 125G", fbaAvail:1820, reserved:721, inbound:799, phillyWH:600, weaver:0, sold30Amazon:825, sold30TikTok:8, doh:132, stock3mo:-1441, stock4mo:-608, stock5mo:225, notes:"Check manually"},
-            {sku:"PS-16", name:"Neem Spray 16oz RTU", fbaAvail:8954, reserved:2729, inbound:6972, phillyWH:187, weaver:1646, sold30Amazon:5723, sold30TikTok:35, doh:100, stock3mo:-3214, stock4mo:2544, stock5mo:8302, notes:""},
-            {sku:"PS-32", name:"Neem Spray 32oz RTU", fbaAvail:1564, reserved:1190, inbound:0, phillyWH:116, weaver:4, sold30Amazon:1562, sold30TikTok:34, doh:128, stock3mo:1914, stock4mo:3510, stock5mo:5106, notes:""},
-            {sku:"PS-128", name:"Neem Spray 128oz Jug", fbaAvail:392, reserved:72, inbound:0, phillyWH:34, weaver:0, sold30Amazon:414, sold30TikTok:11, doh:32, stock3mo:777, stock4mo:1202, stock5mo:1627, notes:""},
-            {sku:"PS-128-Trigger", name:"Neem Spray 128oz F-Style", fbaAvail:0, reserved:4, inbound:0, phillyWH:0, weaver:0, sold30Amazon:100, sold30TikTok:0, doh:0, stock3mo:296, stock4mo:396, stock5mo:496, notes:""},
-            {sku:"PS-10-F", name:"Neem Spray 10oz Flarisol", fbaAvail:464, reserved:449, inbound:1, phillyWH:0, weaver:19, sold30Amazon:66, sold30TikTok:0, doh:366, stock3mo:-735, stock4mo:-669, stock5mo:-603, notes:""},
-            {sku:"NeemConc-4oz", name:"Neem Plant Wash Conc. 4oz", fbaAvail:2203, reserved:161, inbound:0, phillyWH:3, weaver:307, sold30Amazon:243, sold30TikTok:0, doh:241, stock3mo:-1945, stock4mo:-1702, stock5mo:-1459, notes:""},
-            {sku:"NeemConc-8oz", name:"Neem Plant Wash Conc. 8oz", fbaAvail:420, reserved:30, inbound:24, phillyWH:0, weaver:8, sold30Amazon:86, sold30TikTok:0, doh:128, stock3mo:-224, stock4mo:-138, stock5mo:-52, notes:""},
-            {sku:"NeemConc-16oz", name:"Neem Plant Wash Conc. 16oz", fbaAvail:196, reserved:170, inbound:0, phillyWH:0, weaver:8, sold30Amazon:214, sold30TikTok:0, doh:47, stock3mo:268, stock4mo:482, stock5mo:696, notes:""},
-            {sku:"POS-16-AMZ", name:"Peppermint Insect Spray 16oz", fbaAvail:3499, reserved:1447, inbound:0, phillyWH:1031, weaver:6, sold30Amazon:1657, sold30TikTok:1704, doh:81, stock3mo:4100, stock4mo:7461, stock5mo:10822, notes:""},
-            {sku:"POS-32", name:"Peppermint Insect Spray 32oz", fbaAvail:943, reserved:332, inbound:2, phillyWH:122, weaver:13, sold30Amazon:265, sold30TikTok:0, doh:99, stock3mo:-617, stock4mo:-352, stock5mo:-87, notes:""},
-            {sku:"POS-128-Trigger", name:"Peppermint Insect Spray 128oz F-Style", fbaAvail:64, reserved:9, inbound:0, phillyWH:0, weaver:0, sold30Amazon:30, sold30TikTok:0, doh:36, stock3mo:17, stock4mo:47, stock5mo:77, notes:""},
-            {sku:"POS-128", name:"Peppermint Spray 128oz Jug", fbaAvail:147, reserved:243, inbound:0, phillyWH:8, weaver:0, sold30Amazon:96, sold30TikTok:0, doh:92, stock3mo:-110, stock4mo:-14, stock5mo:82, notes:""},
-            {sku:"PeppConc-4oz", name:"Peppermint Spray Conc. 4oz", fbaAvail:975, reserved:0, inbound:0, phillyWH:0, weaver:3, sold30Amazon:14, sold30TikTok:0, doh:366, stock3mo:-936, stock4mo:-922, stock5mo:-908, notes:""},
-            {sku:"PeppConc-8oz", name:"Peppermint Spray Conc. 8oz", fbaAvail:425, reserved:48, inbound:0, phillyWH:0, weaver:10, sold30Amazon:6, sold30TikTok:0, doh:366, stock3mo:-465, stock4mo:-459, stock5mo:-453, notes:""},
-            {sku:"PeppConc-16oz", name:"Peppermint Spray Conc. 16oz", fbaAvail:134, reserved:201, inbound:0, phillyWH:0, weaver:0, sold30Amazon:113, sold30TikTok:0, doh:68, stock3mo:4, stock4mo:117, stock5mo:230, notes:""},
-            {sku:"OPS-3lb", name:"Indoor Potting Soil 3LB", fbaAvail:483, reserved:13, inbound:275, phillyWH:7, weaver:0, sold30Amazon:240, sold30TikTok:0, doh:99, stock3mo:-58, stock4mo:182, stock5mo:422, notes:""},
-            {sku:"SeaKelp-2oz", name:"Sea Kelp 2oz", fbaAvail:1329, reserved:549, inbound:0, phillyWH:17, weaver:0, sold30Amazon:797, sold30TikTok:38, doh:62, stock3mo:610, stock4mo:1445, stock5mo:2280, notes:""},
-            {sku:"SeaKelp-4oz", name:"Sea Kelp 4oz", fbaAvail:451, reserved:176, inbound:250, phillyWH:388, weaver:0, sold30Amazon:272, sold30TikTok:0, doh:78, stock3mo:-449, stock4mo:-177, stock5mo:95, notes:""},
-            {sku:"SeaKelp-8oz", name:"Sea Kelp 8oz", fbaAvail:430, reserved:31, inbound:18, phillyWH:32, weaver:0, sold30Amazon:384, sold30TikTok:0, doh:42, stock3mo:641, stock4mo:1025, stock5mo:1409, notes:""},
-            {sku:"Neem-Supreme-8", name:"Neem Supreme 8oz", fbaAvail:6558, reserved:759, inbound:6048, phillyWH:174, weaver:2032, sold30Amazon:1902, sold30TikTok:0, doh:199, stock3mo:-9865, stock4mo:-7963, stock5mo:-6061, notes:""},
-            {sku:"Neem-Supreme-16", name:"Neem Supreme 16oz", fbaAvail:976, reserved:93, inbound:0, phillyWH:203, weaver:1350, sold30Amazon:197, sold30TikTok:1, doh:143, stock3mo:-2028, stock4mo:-1830, stock5mo:-1632, notes:""},
-            {sku:"Neem-Supreme-32", name:"Neem Supreme 32oz", fbaAvail:824, reserved:95, inbound:0, phillyWH:119, weaver:156, sold30Amazon:159, sold30TikTok:1, doh:148, stock3mo:-714, stock4mo:-554, stock5mo:-394, notes:""},
-            {sku:"Neem-Supreme-10F", name:"Neem Supreme 10oz Flarisol", fbaAvail:30, reserved:1081, inbound:0, phillyWH:0, weaver:14, sold30Amazon:66, sold30TikTok:0, doh:0, stock3mo:-927, stock4mo:-861, stock5mo:-795, notes:""},
-            {sku:"StinkBug-16oz", name:"Stink Bug Spray 16oz", fbaAvail:2407, reserved:353, inbound:0, phillyWH:256, weaver:0, sold30Amazon:664, sold30TikTok:9, doh:105, stock3mo:-997, stock4mo:-324, stock5mo:349, notes:""},
-            {sku:"StinkBug-32oz", name:"Stink Bug Spray 32oz", fbaAvail:356, reserved:11, inbound:0, phillyWH:0, weaver:12, sold30Amazon:66, sold30TikTok:0, doh:131, stock3mo:-181, stock4mo:-115, stock5mo:-49, notes:""},
-            {sku:"StinkBug-128oz", name:"Stink Bug Spray 128oz F-Style", fbaAvail:63, reserved:11, inbound:0, phillyWH:0, weaver:0, sold30Amazon:27, sold30TikTok:0, doh:48, stock3mo:7, stock4mo:34, stock5mo:61, notes:""},
-            {sku:"RodentRep-16oz", name:"Rodent Repellent 16oz", fbaAvail:1963, reserved:4862, inbound:9, phillyWH:371, weaver:408, sold30Amazon:1387, sold30TikTok:37, doh:256, stock3mo:-3341, stock4mo:-1917, stock5mo:-493, notes:""},
-            {sku:"RodentRep-32oz", name:"Rodent Repellent 32oz", fbaAvail:303, reserved:138, inbound:0, phillyWH:0, weaver:1120, sold30Amazon:197, sold30TikTok:0, doh:70, stock3mo:-970, stock4mo:-773, stock5mo:-576, notes:""},
-            {sku:"RodentRep-128-Jug", name:"Rodent Repellent 128oz Jug", fbaAvail:117, reserved:179, inbound:1, phillyWH:0, weaver:0, sold30Amazon:74, sold30TikTok:0, doh:93, stock3mo:-75, stock4mo:-1, stock5mo:73, notes:""},
-            {sku:"RodentRep-128-F", name:"Rodent Repellent 128oz F-Style", fbaAvail:55, reserved:0, inbound:0, phillyWH:0, weaver:201, sold30Amazon:43, sold30TikTok:0, doh:25, stock3mo:-127, stock4mo:-84, stock5mo:-41, notes:""},
-            {sku:"SpiderRep-16oz", name:"Spider Repellent 16oz", fbaAvail:2070, reserved:13, inbound:0, phillyWH:0, weaver:50, sold30Amazon:321, sold30TikTok:0, doh:153, stock3mo:-1170, stock4mo:-849, stock5mo:-528, notes:""},
-            {sku:"SpiderRep-32oz", name:"Spider Repellent 32oz", fbaAvail:453, reserved:0, inbound:0, phillyWH:0, weaver:2, sold30Amazon:32, sold30TikTok:0, doh:307, stock3mo:-359, stock4mo:-327, stock5mo:-295, notes:""},
-            {sku:"SpiderRep-128-Jug", name:"Spider Repellent 128oz Jug", fbaAvail:82, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:10, sold30TikTok:0, doh:105, stock3mo:-52, stock4mo:-42, stock5mo:-32, notes:""},
-            {sku:"SpiderRep-128-F", name:"Spider Repellent 128oz F-Style", fbaAvail:92, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:8, sold30TikTok:0, doh:74, stock3mo:-68, stock4mo:-60, stock5mo:-52, notes:""},
-            {sku:"AntKiller-16oz", name:"Ant Killer Spray 16oz", fbaAvail:1911, reserved:135, inbound:0, phillyWH:0, weaver:24, sold30Amazon:353, sold30TikTok:0, doh:228, stock3mo:-1011, stock4mo:-658, stock5mo:-305, notes:""},
-            {sku:"AntKiller-32oz", name:"Ant Killer Spray 32oz", fbaAvail:437, reserved:12, inbound:0, phillyWH:0, weaver:12, sold30Amazon:27, sold30TikTok:0, doh:366, stock3mo:-380, stock4mo:-353, stock5mo:-326, notes:""},
-            {sku:"AntKiller-128-Jug", name:"Ant Killer Spray 128oz Jug", fbaAvail:80, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:15, sold30TikTok:0, doh:101, stock3mo:-35, stock4mo:-20, stock5mo:-5, notes:""},
-            {sku:"AntKiller-128-F", name:"Ant Killer Spray 128oz F-Style", fbaAvail:71, reserved:28, inbound:4, phillyWH:0, weaver:0, sold30Amazon:1, sold30TikTok:0, doh:46, stock3mo:-100, stock4mo:-99, stock5mo:-98, notes:""},
-            {sku:"GHPF-8", name:"Genius+ House Plant Food 8oz", fbaAvail:411, reserved:1213, inbound:14, phillyWH:145, weaver:6, sold30Amazon:1328, sold30TikTok:2, doh:30, stock3mo:2201, stock4mo:3531, stock5mo:4861, notes:""},
-            {sku:"GHPF-8-2pk", name:"Genius+ Plant Food 8oz 2-Pack", fbaAvail:194, reserved:103, inbound:0, phillyWH:0, weaver:21, sold30Amazon:55, sold30TikTok:0, doh:41, stock3mo:-153, stock4mo:-98, stock5mo:-43, notes:""},
-            {sku:"GGPF-200", name:"Genius+ Granular 200G", fbaAvail:154, reserved:77, inbound:293, phillyWH:1290, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-1814, stock4mo:-1814, stock5mo:-1814, notes:""},
-            {sku:"GGPF-400", name:"Genius+ Granular 400G", fbaAvail:449, reserved:70, inbound:0, phillyWH:2, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:327, stock3mo:-521, stock4mo:-521, stock5mo:-521, notes:""},
-            {sku:"GGPF-1000", name:"Genius+ Granular 1000G", fbaAvail:496, reserved:16, inbound:0, phillyWH:314, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-826, stock4mo:-826, stock5mo:-826, notes:""},
-            {sku:"GS-8", name:"Gnat Spray 8oz", fbaAvail:78, reserved:930, inbound:0, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-1008, stock4mo:-1008, stock5mo:-1008, notes:""},
-            {sku:"GS-16", name:"Gnat Spray 16oz", fbaAvail:31, reserved:465, inbound:14, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:0, stock3mo:-510, stock4mo:-510, stock5mo:-510, notes:""},
-            {sku:"MD-32", name:"Mite Defender 32oz", fbaAvail:252, reserved:242, inbound:0, phillyWH:0, weaver:7, sold30Amazon:0, sold30TikTok:0, doh:313, stock3mo:-501, stock4mo:-501, stock5mo:-501, notes:""}
+            {sku:"MF-500", name:"Mycorrhizal Fungi 500G", fbaAvail:700, reserved:364, inbound:240, phillyWH:0, weaver:0, sold30Amazon:284, sold30TikTok:0, doh:192, stock3mo:-452, stock4mo:-168, stock5mo:116, notes:""},
+            {sku:"MF-250", name:"Mycorrhizal Fungi 250G", fbaAvail:629, reserved:161, inbound:0, phillyWH:13, weaver:0, sold30Amazon:194, sold30TikTok:0, doh:172, stock3mo:-221, stock4mo:-27, stock5mo:167, notes:""},
+            {sku:"MF-125", name:"Mycorrhizal Fungi 125G", fbaAvail:4592, reserved:546, inbound:0, phillyWH:3201, weaver:0, sold30Amazon:1257, sold30TikTok:94, doh:218, stock3mo:-4286, stock4mo:-2935, stock5mo:-1584, notes:""},
+            {sku:"boost-plant-8oz-FBA", name:"Supercharge 8oz", fbaAvail:896, reserved:76, inbound:750, phillyWH:0, weaver:0, sold30Amazon:462, sold30TikTok:0, doh:157, stock3mo:-336, stock4mo:126, stock5mo:588, notes:""},
+            {sku:"boost-plant-FBA", name:"Supercharge 4oz", fbaAvail:1276, reserved:314, inbound:5, phillyWH:148, weaver:0, sold30Amazon:408, sold30TikTok:347, doh:164, stock3mo:522, stock4mo:1277, stock5mo:2032, notes:""},
+            {sku:"boost-plant-2oz-FBA", name:"Supercharge 2oz", fbaAvail:1456, reserved:715, inbound:1, phillyWH:517, weaver:0, sold30Amazon:623, sold30TikTok:179, doh:142, stock3mo:-283, stock4mo:519, stock5mo:1321, notes:""},
+            {sku:"PO-500", name:"Plant Food 500G", fbaAvail:538, reserved:140, inbound:2, phillyWH:1, weaver:0, sold30Amazon:117, sold30TikTok:0, doh:356, stock3mo:-330, stock4mo:-213, stock5mo:-96, notes:""},
+            {sku:"PO-250", name:"Plant Food 250G", fbaAvail:204, reserved:11, inbound:250, phillyWH:30, weaver:0, sold30Amazon:75, sold30TikTok:0, doh:209, stock3mo:-270, stock4mo:-195, stock5mo:-120, notes:""},
+            {sku:"PO-125-M", name:"Plant Food 125G", fbaAvail:2022, reserved:1191, inbound:0, phillyWH:102, weaver:0, sold30Amazon:564, sold30TikTok:8, doh:139, stock3mo:-1599, stock4mo:-1027, stock5mo:-455, notes:"Has to be checked manually"},
+            {sku:"PS-16", name:"Neem Spray 16oz RTU", fbaAvail:8073, reserved:9900, inbound:1080, phillyWH:175, weaver:66, sold30Amazon:6662, sold30TikTok:36, doh:92, stock3mo:800, stock4mo:7498, stock5mo:14196, notes:""},
+            {sku:"PS-32", name:"Neem Spray 32oz RTU", fbaAvail:1734, reserved:471, inbound:24, phillyWH:109, weaver:2100, sold30Amazon:1776, sold30TikTok:37, doh:128, stock3mo:1001, stock4mo:2814, stock5mo:4627, notes:""},
+            {sku:"PS-128", name:"Neem Spray 128oz Jug", fbaAvail:234, reserved:60, inbound:0, phillyWH:30, weaver:502, sold30Amazon:503, sold30TikTok:13, doh:17, stock3mo:722, stock4mo:1238, stock5mo:1754, notes:""},
+            {sku:"PS-128-Trigger", name:"Neem Spray 128oz F-Style", fbaAvail:0, reserved:0, inbound:440, phillyWH:0, weaver:0, sold30Amazon:117, sold30TikTok:0, doh:92, stock3mo:-89, stock4mo:28, stock5mo:145, notes:""},
+            {sku:"PS-10-F", name:"Neem Spray 10oz Flarisol", fbaAvail:233, reserved:154, inbound:3, phillyWH:0, weaver:19, sold30Amazon:619, sold30TikTok:0, doh:26, stock3mo:1448, stock4mo:2067, stock5mo:2686, notes:""},
+            {sku:"NeemConc-4oz", name:"Neem Plant Wash Conc. 4oz", fbaAvail:2123, reserved:155, inbound:0, phillyWH:3, weaver:307, sold30Amazon:284, sold30TikTok:0, doh:218, stock3mo:-1736, stock4mo:-1452, stock5mo:-1168, notes:""},
+            {sku:"NeemConc-8oz", name:"Neem Plant Wash Conc. 8oz", fbaAvail:372, reserved:49, inbound:0, phillyWH:0, weaver:8, sold30Amazon:103, sold30TikTok:0, doh:119, stock3mo:-120, stock4mo:-17, stock5mo:86, notes:""},
+            {sku:"NeemConc-16oz", name:"Neem Plant Wash Conc. 16oz", fbaAvail:182, reserved:120, inbound:0, phillyWH:0, weaver:8, sold30Amazon:252, sold30TikTok:0, doh:37, stock3mo:446, stock4mo:698, stock5mo:950, notes:""},
+            {sku:"POS-16-AMZ", name:"Peppermint Insect Spray 16oz RTU", fbaAvail:3294, reserved:638, inbound:5403, phillyWH:6, weaver:6, sold30Amazon:2459, sold30TikTok:2259, doh:193, stock3mo:4807, stock4mo:9525, stock5mo:14243, notes:"Has to be checked manually"},
+            {sku:"POS-32", name:"Peppermint Insect Spray 32oz RTU", fbaAvail:1036, reserved:92, inbound:0, phillyWH:122, weaver:13, sold30Amazon:370, sold30TikTok:0, doh:104, stock3mo:-153, stock4mo:217, stock5mo:587, notes:""},
+            {sku:"POS-128-Trigger", name:"Peppermint Insect Spray 128oz F-Style", fbaAvail:40, reserved:9, inbound:2, phillyWH:0, weaver:0, sold30Amazon:50, sold30TikTok:0, doh:29, stock3mo:99, stock4mo:149, stock5mo:199, notes:""},
+            {sku:"POS-128", name:"Peppermint Insect Spray 128oz", fbaAvail:240, reserved:107, inbound:0, phillyWH:8, weaver:0, sold30Amazon:107, sold30TikTok:0, doh:90, stock3mo:-34, stock4mo:73, stock5mo:180, notes:""},
+            {sku:"PeppConc-4oz", name:"Peppermint Spray Conc. 4oz", fbaAvail:974, reserved:0, inbound:0, phillyWH:0, weaver:3, sold30Amazon:9, sold30TikTok:0, doh:366, stock3mo:-950, stock4mo:-941, stock5mo:-932, notes:""},
+            {sku:"PeppConc-8oz", name:"Peppermint Spray Conc. 8oz", fbaAvail:459, reserved:11, inbound:0, phillyWH:0, weaver:10, sold30Amazon:7, sold30TikTok:0, doh:366, stock3mo:-459, stock4mo:-452, stock5mo:-445, notes:""},
+            {sku:"PeppConc-16oz", name:"Peppermint Spray Conc. 16oz", fbaAvail:163, reserved:94, inbound:0, phillyWH:0, weaver:0, sold30Amazon:159, sold30TikTok:0, doh:72, stock3mo:220, stock4mo:379, stock5mo:538, notes:""},
+            {sku:"OPS-3lb", name:"Indoor Potting Soil 3LB", fbaAvail:395, reserved:11, inbound:275, phillyWH:7, weaver:0, sold30Amazon:258, sold30TikTok:0, doh:71, stock3mo:86, stock4mo:344, stock5mo:602, notes:""},
+            {sku:"SeaKelp-2oz-FBA", name:"Sea Kelp 2oz", fbaAvail:1482, reserved:207, inbound:1, phillyWH:13, weaver:0, sold30Amazon:857, sold30TikTok:36, doh:49, stock3mo:976, stock4mo:1869, stock5mo:2762, notes:""},
+            {sku:"SeaKelp-4oz-FBA", name:"Sea Kelp 4oz", fbaAvail:448, reserved:161, inbound:200, phillyWH:87, weaver:0, sold30Amazon:278, sold30TikTok:0, doh:71, stock3mo:-62, stock4mo:216, stock5mo:494, notes:""},
+            {sku:"SeaKelp-8oz-FBA", name:"Sea Kelp 8oz", fbaAvail:360, reserved:36, inbound:201, phillyWH:6, weaver:0, sold30Amazon:382, sold30TikTok:0, doh:46, stock3mo:543, stock4mo:925, stock5mo:1307, notes:""},
+            {sku:"LOPF-16", name:"Liquid Plant Food 16oz", fbaAvail:47, reserved:51, inbound:0, phillyWH:475, weaver:0, sold30Amazon:1, sold30TikTok:2, doh:366, stock3mo:-564, stock4mo:-561, stock5mo:-558, notes:"Discontinued on Amazon"},
+            {sku:"LOPF-8", name:"Liquid Plant Food 8oz", fbaAvail:83, reserved:121, inbound:0, phillyWH:1, weaver:0, sold30Amazon:5, sold30TikTok:0, doh:342, stock3mo:-190, stock4mo:-185, stock5mo:-180, notes:"Discontinued on Amazon"},
+            {sku:"LOPF-32", name:"Liquid Plant Food 32oz", fbaAvail:38, reserved:28, inbound:0, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-66, stock4mo:-66, stock5mo:-66, notes:"Discontinued on Amazon"},
+            {sku:"ST-30", name:"Tablets 30 Pack", fbaAvail:0, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:0, stock3mo:0, stock4mo:0, stock5mo:0, notes:"Discontinued on Amazon"},
+            {sku:"ST-20", name:"Tablets 20 Pack", fbaAvail:0, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:0, stock3mo:0, stock4mo:0, stock5mo:0, notes:"Discontinued on Amazon"},
+            {sku:"ST-10", name:"Tablets 10 Pack", fbaAvail:0, reserved:0, inbound:0, phillyWH:553, weaver:0, sold30Amazon:0, sold30TikTok:4, doh:0, stock3mo:-541, stock4mo:-537, stock5mo:-533, notes:"Discontinued on Amazon"},
+            {sku:"Neem-Supreme-8", name:"Neem Supreme 8oz", fbaAvail:6144, reserved:6863, inbound:0, phillyWH:174, weaver:2032, sold30Amazon:1879, sold30TikTok:0, doh:239, stock3mo:-9576, stock4mo:-7697, stock5mo:-5818, notes:""},
+            {sku:"Neem-Supreme-16", name:"Neem Supreme 16oz", fbaAvail:933, reserved:78, inbound:0, phillyWH:203, weaver:1350, sold30Amazon:203, sold30TikTok:1, doh:157, stock3mo:-1952, stock4mo:-1748, stock5mo:-1544, notes:""},
+            {sku:"Neem-Supreme-32", name:"Neem Supreme 32oz", fbaAvail:827, reserved:83, inbound:0, phillyWH:119, weaver:156, sold30Amazon:152, sold30TikTok:1, doh:172, stock3mo:-726, stock4mo:-573, stock5mo:-420, notes:""},
+            {sku:"Neem-Supreme-10F", name:"Neem Supreme 10oz Flarisol", fbaAvail:511, reserved:575, inbound:1, phillyWH:0, weaver:14, sold30Amazon:24, sold30TikTok:0, doh:366, stock3mo:-1029, stock4mo:-1005, stock5mo:-981, notes:""},
+            {sku:"StinkBug-16oz", name:"Stink Bug Spray 16oz", fbaAvail:2338, reserved:164, inbound:7, phillyWH:255, weaver:0, sold30Amazon:774, sold30TikTok:10, doh:130, stock3mo:-412, stock4mo:372, stock5mo:1156, notes:""},
+            {sku:"StinkBug-32oz", name:"Stink Bug Spray 32oz", fbaAvail:329, reserved:9, inbound:0, phillyWH:0, weaver:12, sold30Amazon:79, sold30TikTok:0, doh:158, stock3mo:-113, stock4mo:-34, stock5mo:45, notes:""},
+            {sku:"StinkBug-128oz", name:"Stink Bug Spray 128oz F-Style", fbaAvail:49, reserved:6, inbound:0, phillyWH:0, weaver:0, sold30Amazon:41, sold30TikTok:0, doh:42, stock3mo:68, stock4mo:109, stock5mo:150, notes:""},
+            {sku:"RodentRep-16", name:"Rodent Repellent 16oz (Old SKU)", fbaAvail:2, reserved:1, inbound:0, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:0, stock3mo:-3, stock4mo:-3, stock5mo:-3, notes:"Wrong Inventory"},
+            {sku:"RodentRep-16oz-FBA", name:"Rodent Repellent 16oz", fbaAvail:5486, reserved:1199, inbound:3, phillyWH:363, weaver:408, sold30Amazon:1063, sold30TikTok:31, doh:366, stock3mo:-4177, stock4mo:-3083, stock5mo:-1989, notes:""},
+            {sku:"RodentRep-32oz", name:"Rodent Repellent 32oz", fbaAvail:366, reserved:43, inbound:433, phillyWH:0, weaver:688, sold30Amazon:156, sold30TikTok:0, doh:210, stock3mo:-1062, stock4mo:-906, stock5mo:-750, notes:""},
+            {sku:"RodentRep-128-Jug", name:"Rodent Repellent 128oz Jug", fbaAvail:229, reserved:38, inbound:10, phillyWH:0, weaver:200, sold30Amazon:51, sold30TikTok:0, doh:152, stock3mo:-324, stock4mo:-273, stock5mo:-222, notes:""},
+            {sku:"RodentRep-128-F", name:"Rodent Repellent 128oz F-Style", fbaAvail:46, reserved:2, inbound:128, phillyWH:0, weaver:73, sold30Amazon:51, sold30TikTok:0, doh:100, stock3mo:-96, stock4mo:-45, stock5mo:6, notes:""},
+            {sku:"SpiderRep-16oz", name:"Spider Repellent 16oz", fbaAvail:2001, reserved:26, inbound:0, phillyWH:0, weaver:50, sold30Amazon:347, sold30TikTok:0, doh:148, stock3mo:-1036, stock4mo:-689, stock5mo:-342, notes:""},
+            {sku:"SpiderRep-32oz", name:"Spider Repellent 32oz", fbaAvail:453, reserved:0, inbound:0, phillyWH:0, weaver:2, sold30Amazon:30, sold30TikTok:0, doh:266, stock3mo:-365, stock4mo:-335, stock5mo:-305, notes:""},
+            {sku:"SpiderRep-128-Jug", name:"Spider Repellent 128oz Jug", fbaAvail:80, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:9, sold30TikTok:0, doh:158, stock3mo:-53, stock4mo:-44, stock5mo:-35, notes:""},
+            {sku:"SpiderRep-128-F", name:"Spider Repellent 128oz F-Style", fbaAvail:89, reserved:1, inbound:0, phillyWH:0, weaver:0, sold30Amazon:10, sold30TikTok:0, doh:88, stock3mo:-60, stock4mo:-50, stock5mo:-40, notes:""},
+            {sku:"AntKiller-16oz", name:"Ant Killer Spray 16oz", fbaAvail:1831, reserved:137, inbound:0, phillyWH:0, weaver:24, sold30Amazon:341, sold30TikTok:0, doh:253, stock3mo:-969, stock4mo:-628, stock5mo:-287, notes:""},
+            {sku:"AntKiller-32oz", name:"Ant Killer Spray 32oz", fbaAvail:442, reserved:1, inbound:0, phillyWH:0, weaver:12, sold30Amazon:25, sold30TikTok:0, doh:366, stock3mo:-380, stock4mo:-355, stock5mo:-330, notes:""},
+            {sku:"AntKiller-128-Jug", name:"Ant Killer Spray 128oz Jug", fbaAvail:77, reserved:0, inbound:0, phillyWH:0, weaver:0, sold30Amazon:14, sold30TikTok:0, doh:144, stock3mo:-35, stock4mo:-21, stock5mo:-7, notes:""},
+            {sku:"AntKiller-128-F", name:"Ant Killer Spray 128oz F-Style", fbaAvail:84, reserved:13, inbound:4, phillyWH:0, weaver:0, sold30Amazon:3, sold30TikTok:0, doh:113, stock3mo:-92, stock4mo:-89, stock5mo:-86, notes:""},
+            {sku:"GHPF-8", name:"Genius+ House Plant Food 8oz", fbaAvail:570, reserved:847, inbound:0, phillyWH:121, weaver:6, sold30Amazon:1510, sold30TikTok:4, doh:19, stock3mo:2998, stock4mo:4512, stock5mo:6026, notes:""},
+            {sku:"GHPF-8-2pk", name:"Genius+ House Plant Food 8oz 2-Pack", fbaAvail:256, reserved:20, inbound:0, phillyWH:0, weaver:21, sold30Amazon:82, sold30TikTok:0, doh:42, stock3mo:-51, stock4mo:31, stock5mo:113, notes:""},
+            {sku:"GGPF-200", name:"Genius+ Granular 200G", fbaAvail:75, reserved:155, inbound:293, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-523, stock4mo:-523, stock5mo:-523, notes:"Wrong Inventory"},
+            {sku:"GGPF-200-AMZ", name:"Genius+ Granular 200G (AMZ)", fbaAvail:418, reserved:1155, inbound:0, phillyWH:1539, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-3112, stock4mo:-3112, stock5mo:-3112, notes:""},
+            {sku:"GGPF-400", name:"Genius+ Granular 400G", fbaAvail:448, reserved:70, inbound:0, phillyWH:2, weaver:0, sold30Amazon:1, sold30TikTok:0, doh:332, stock3mo:-517, stock4mo:-516, stock5mo:-515, notes:""},
+            {sku:"GGPF-1000", name:"Genius+ Granular 1000G", fbaAvail:496, reserved:0, inbound:16, phillyWH:314, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-826, stock4mo:-826, stock5mo:-826, notes:""},
+            {sku:"GS-8", name:"Gnat Spray 8oz", fbaAvail:525, reserved:482, inbound:1, phillyWH:0, weaver:0, sold30Amazon:1, sold30TikTok:0, doh:366, stock3mo:-1005, stock4mo:-1004, stock5mo:-1003, notes:""},
+            {sku:"GS-16", name:"Gnat Spray 16oz", fbaAvail:223, reserved:271, inbound:13, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:353, stock3mo:-507, stock4mo:-507, stock5mo:-507, notes:""},
+            {sku:"GS-32", name:"Gnat Spray 32oz", fbaAvail:132, reserved:166, inbound:24, phillyWH:0, weaver:0, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-322, stock4mo:-322, stock5mo:-322, notes:""},
+            {sku:"GS-10-F", name:"Gnat Spray 10oz Flarisol", fbaAvail:4, reserved:964, inbound:82, phillyWH:0, weaver:22, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-1072, stock4mo:-1072, stock5mo:-1072, notes:""},
+            {sku:"MD-32", name:"Mite Defender 32oz", fbaAvail:306, reserved:176, inbound:0, phillyWH:0, weaver:7, sold30Amazon:0, sold30TikTok:0, doh:366, stock3mo:-489, stock4mo:-489, stock5mo:-489, notes:""}
         ];
 
         let currentSort = { field: 'stock5mo', direction: 'desc' };
@@ -583,7 +593,9 @@
         function getCategory(name) {
             if (name.includes('Fungi')) return 'Fungi';
             if (name.includes('Supercharge')) return 'Boosters';
-            if (name.includes('Plant Food')) return 'Plant Food';
+            if (name.includes('Liquid Plant Food')) return 'Plant Food';
+            if (name.includes('Plant Food') && !name.includes('Genius')) return 'Plant Food';
+            if (name.includes('Tablet')) return 'Plant Food';
             if (name.includes('Neem') || name.includes('neem')) return 'Neem';
             if (name.includes('Peppermint') || name.includes('Spray Conc')) return 'Peppermint';
             if (name.includes('Rodent')) return 'Rodent Control';
